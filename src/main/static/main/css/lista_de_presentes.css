@@ -1,0 +1,48 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #EAE3D8; /* Cor de fundo principal */
+}
+.header {
+    background-color: #4A5334; /* Verde escuro */
+    padding: 30px 20px;
+    text-align: center;
+}
+.header h1 {
+    color: #EAE3D8; /* Bege claro */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3em;
+    font-weight: 400;
+    margin: 0;
+}
+.p1 {
+    color: #4A5334; /* Bege claro */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3em;
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
+}
+.content {
+    padding: 40px 20px;
+    text-align: center;
+}
+.Presentes {
+  display: flex;          /* Ativa o modo flexível (coloca os itens lado a lado) */
+  flex-wrap: wrap;        /* Se não couber na tela, os itens pulam para a linha de baixo */
+  gap: 20px;              /* Cria um espaço uniforme entre os itens */
+  list-style-type: none;  /* Remove os pontinhos */
+  padding: 0;
+  margin: 0;
+}
+
+.Presentes li {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  width: 200px;           /* Largura fixa para cada "card" de produto */
+  text-align: center;
+}
+

@@ -1,0 +1,53 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# === Virtualenv ===
+venv/
+env/
+.venv/
+
+# === Django ===
+*.log
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# Migrations (opcional ignorar se quiser versionar)
+# */migrations/
+# !*/migrations/__init__.py
+
+# === VS Code / IDE ===
+.vscode/
+.idea/
+*.swp
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === Env ===
+.env
+.env.*
+
+# === Coverage / testes ===
+htmlcov/
+.coverage
+.pytest_cache/
+
+# === Node (se usar frontend) ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === Docker (se existir) ===
+*.pid
+*.sock

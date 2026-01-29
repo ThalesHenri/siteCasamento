@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento Ailka & Vínicius</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+    <header class="header">
+        <h1>Ailka & Vínicius</h1>
+    </header>
+
+    <main class="content">
+        <p class="welcome-text">Bem-vindos ao nosso começo!</p>
+
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <div class="image-carousel">
+                <div class="carousel-item active">
+                    <img src="{% static 'main/assets/casal.webp'%}" alt="Foto do casal 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'main/assets/casal2.webp'%}" alt="Foto do casal 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'main/assets/casal3.webp'%}" alt="Foto do casal 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'main/assets/casal4.webp'%}" alt="Foto do casal 4">
+                </div>
+            </div>
+            <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <div class="buttons">
+            <a href="#" class="btn">Relembre nossa história</a>
+            <a href="{% url 'lista_de_presentes' %}" class="btn">Lista de presentes</a>
+            <a href="#" class="btn">Confirme sua presença</a>
+        </div>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.image-carousel');
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let currentIndex = 0;
+    const itemWidth = carouselItems[0].clientWidth; // Largura de um item do carrossel
+
+    // Função para atualizar a exibição do carrossel
+    function updateCarousel() {
+        carousel.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+    }
+
+    // Evento para o botão Anterior
+    prevBtn.addEventListener('click', function() {
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = carouselItems.length - 1; // Volta para a última imagem
+        }
+        updateCarousel();
+    });
+
+    // Evento para o botão Próximo
+    nextBtn.addEventListener('click', function() {
+        currentIndex++;
+        if (currentIndex >= carouselItems.length) {
+            currentIndex = 0; // Volta para a primeira imagem
+        }
+        updateCarousel();
+    });
+
+    // Para a passagem automática das fotos
+    let autoSlideInterval = setInterval(function() {
+        currentIndex++;
+        if (currentIndex >= carouselItems.length) {
+            currentIndex = 0;
+        }
+        updateCarousel();
+    }, 5000); // Mude 5000 para o tempo em milissegundos que deseja (5 segundos neste caso)
+
+    // Opcional: Pausar o autoslide ao passar o mouse e reiniciar ao tirar
+    carousel.addEventListener('mouseenter', function() {
+        clearInterval(autoSlideInterval);
+    });
+
+    carousel.addEventListener('mouseleave', function() {
+        autoSlideInterval = setInterval(function() {
+            currentIndex++;
+            if (currentIndex >= carouselItems.length) {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }, 5000);
+    });
+
+    // Ajustar o carrossel se a janela for redimensionada
+    window.addEventListener('resize', function() {
+        // Recalcula a largura do item para garantir que a translação esteja correta
+        const newItemWidth = carouselItems[0].clientWidth;
+        carousel.style.transform = `translateX(${-currentIndex * newItemWidth}px)`;
+    });
+    });
+
+</script>
+</html>

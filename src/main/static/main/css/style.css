@@ -1,0 +1,139 @@
+/* Reset básico e configurações do corpo */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #EAE3D8; /* Cor de fundo principal */
+}
+
+/* Cabeçalho */
+.header {
+    background-color: #4A5334; /* Verde escuro */
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.header h1 {
+    color: #EAE3D8; /* Bege claro */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3em;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* Conteúdo Principal */
+.content {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.welcome-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* CARROSSEL DE IMAGENS */
+.carousel-container {
+    position: relative;
+    max-width: 300px; /* Largura máxima do carrossel */
+    margin: 0 auto 50px auto; /* Centraliza e adiciona margem inferior */
+    overflow: hidden; /* Garante que as imagens que não estão ativas não apareçam */
+    border-radius: 10px; /* Bordas arredondadas para o container do carrossel */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra para destacar */
+}
+
+.image-carousel {
+    display: flex;
+    width: 100%; /* Ocupa a largura total do container */
+    transition: transform 0.5s ease-in-out; /* Transição suave para o slide */
+}
+
+.carousel-item {
+    min-width: 100%; /* Cada item ocupa 100% da largura do carrossel */
+    box-sizing: border-box;
+    display: flex; /* Para centralizar a imagem dentro do item, se necessário */
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item img {
+    width: 100%; /* A imagem preenche o item */
+    height: auto;
+    display: block; /* Remove espaço extra abaixo da imagem */
+    border-radius: 10px; /* Bordas arredondadas para as imagens também */
+}
+
+/* Botões de navegação do carrossel */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.5em;
+    z-index: 10; /* Garante que os botões fiquem sobre as imagens */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* Botões da parte inferior */
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espaço entre os botões */
+}
+
+.btn {
+    background-color: #4A5334; /* Verde escuro */
+    color: #EAE3D8; /* Bege claro */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    text-decoration: none;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px; /* Bordas bem arredondadas */
+    width: 80%;
+    max-width: 300px; /* Largura máxima para os botões */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #3a422a; /* Um tom de verde um pouco mais escuro ao passar o mouse */
+}
+
+/* Ajustes para telas menores (Responsividade) */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2.5em;
+    }
+
+    .carousel-container {
+        max-width: 90%; /* Ajusta para telas menores */
+    }
+
+    .carousel-btn {
+        padding: 8px 12px;
+        font-size: 1.2em;
+    }
+}

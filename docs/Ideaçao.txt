@@ -1,0 +1,29 @@
+Entidades:
+	-Admin:
+		- cadastra presentes
+		- faz a lista de convidados
+	-Presente:
+		
+	-Convidados:
+		- confirma sua presença na lista de presença
+		- compra o presente da lista de presente
+Páginas:
+	-Landing Page:
+		-explica a ferramenta
+		-cadastro
+		
+	-Login:
+		-Login para Admin ou para Convidado
+	
+	-Dashboard Admin:
+		- estatisticas do evento(
+		convidados confirmados(ou nao),
+		presentes comprados
+		)
+		- editar a lista de convidados
+		- editar a lista de presentes
+		
+	
+	-Dashboard Convidado:
+		- confirmar sua presença no envento
+		- ver a lista de presente
