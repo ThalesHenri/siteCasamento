@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Presença</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body, html {margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; background:#EAE3D8;}
+        .container {max-width:400px; margin:100px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center;}
+        h1{color:#4A5334; font-family:'Cormorant Garamond',serif; margin-bottom:20px;}
+        .btn{padding:12px 24px;border:none;border-radius:6px;background:#4A5334;color:#EAE3D8;font-size:1em;cursor:pointer;transition:background .3s;}
+        .btn:hover{background:#3a4227;}
+        .status{margin-bottom:20px;font-size:1.1em;color:#555;}
+        a {color:#4A5334; text-decoration:none;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirmação de Presença</h1>
+        {% if confirmado %}
+            <p class="status">Sua presença já foi confirmada. Agradecemos!</p>
+            <a href="{% url 'home' %}" class="btn">Voltar ao Início</a>
+        {% else %}
+            <p class="status">Clique abaixo para confirmar que você irá ao casamento.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Confirmar Presença</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

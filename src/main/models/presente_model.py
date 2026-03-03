@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class Presente(models.Model):
     nome = models.CharField(max_length=100)
@@ -8,3 +9,5 @@ class Presente(models.Model):
     
     def __str__(self):
         return self.nome
+
+

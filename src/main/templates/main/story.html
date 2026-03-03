@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa História</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <style>
+        .story-container {max-width:800px; margin:100px auto; padding:20px; background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+        .story-image {width:100%; border-radius:12px;}
+        .story-text {margin-top:20px; font-size:1.1em; color:#333; line-height:1.6;}
+        .back-link {display:block; margin-top:30px; text-align:center;}
+        .back-link a {background:#4A5334;color:#EAE3D8;padding:10px 20px;border-radius:6px;text-decoration:none;transition:background .3s;}
+        .back-link a:hover {background:#3a4227;}
+    </style>
+</head>
+<body>
+    <div class="story-container">
+        <img src="{% static 'main/assets/Ailka&Vinicius1.jpeg' %}" alt="Casal" class="story-image">
+        <div class="story-text">
+            {{ historia }}
+        </div>
+        <div class="back-link">
+            <a href="{% url 'home' %}">Voltar ao início</a>
+        </div>
+    </div>
+</body>
+</html>

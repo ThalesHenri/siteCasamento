@@ -120,6 +120,7 @@ body, html {
 
 .btn:hover {
     background-color: #3a422a; /* Um tom de verde um pouco mais escuro ao passar o mouse */
+    color: gold;
 }
 
 /* Ajustes para telas menores (Responsividade) */
@@ -135,5 +136,142 @@ body, html {
     .carousel-btn {
         padding: 8px 12px;
         font-size: 1.2em;
+    }
+}
+
+/* --------- Modern design overrides --------- */
+/* color variables */
+:root {
+    --primary: #4A5334;
+    --secondary: #EAE3D8;
+    --accent: #D9995A;
+    --dark: #333;
+    --light: #fff;
+}
+
+/* hero banner */
+.hero {
+    height: 100vh;
+    background: url('../assets/Ailka&Vinicius3.jpeg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    color: var(--light);
+    padding: 0 1rem;
+}
+
+.hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin: 0;
+}
+
+.hero .tagline {
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    font-weight: 300;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.carousel-section {
+    margin-bottom: 3rem;
+}
+
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.image-carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: var(--light);
+    border: none;
+    padding: 0.75rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.carousel-btn:hover {
+    background: rgba(0,0,0,0.8);
+}
+
+.prev-btn { left: 1rem; }
+.next-btn { right: 1rem; }
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    border-radius: 999px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--secondary);
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background: var(--primary);
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .actions {
+        flex-direction: column;
+    }
+
+    .carousel-btn {
+        padding: 0.5rem;
     }
 }

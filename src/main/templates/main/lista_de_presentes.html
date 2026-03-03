@@ -1,5 +1,6 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,57 +8,83 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-    {% load static %}
     <link rel="stylesheet" href="{% static 'main/css/lista_de_presentes.css' %}">
-    
+   
 </head>
 <body>
-     <header class="header">
-        <h1>Ailka & Vínicius</h1>
-    </header>
+    <nav class="top-nav">
+        <a href="{% url 'home' %}" class="logo">Ailka & Vínicius</a>
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+            <a href="{% url 'carrinho' %}" class="cart-link">
+                🛒 Carrinho
+                {% if request.session.carrinho %}
+                <span class="cart-count">{{ request.session.carrinho|length }}</span>
+                {% endif %}
+            </a>
+            {% if not user.presenca_confirmada %}
+            <a href="{% url 'confirmar_presenca' %}" class="confirm-link">Confirmar Presença</a>
+            {% else %}
+            <span class="confirmed">Presença Confirmada</span>
+            {% endif %}
+            <span class="user-info">
+                Bem-vindo, <strong>{{ user.get_full_name|default:user.username }}</strong>
+                <a href="{% url 'logout' %}">Sair</a>
+            </span>
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Registrar</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <main>
-        <p class="p1">Lista de Presentes</p>
+        <h2 class="page-title">Nossa Lista de Presentes</h2>
         <div class="content">
-        <ul class="Presentes">
-            <li>
-                <a href="#">
-                    <img src="/SiteDeCasamento-main/Assets/presente.jpg" width="200px"><br>
-                    <span><strong>PRESENTE</strong></span><br>
-                    <span><strong><u>PREÇO</u></strong></span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="/SiteDeCasamento-main/Assets/presente.jpg" width="200px"><br>
-                    <span><strong>PRESENTE</strong></span><br>
-                    <span><strong><u>PREÇO</u></strong></span>
-                </a>
-            </li>
-            <li><a href="#">
-                <img src="/SiteDeCasamento-main/Assets/presente.jpg" width="200px"><br>
-                <span><strong>PRESENTE</strong></span><br>
-                <span><strong><u>PREÇO</u></strong></span>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="/SiteDeCasamento-main/Assets/presente.jpg" width="200px"><br>
-                <span><strong>PRESENTE</strong></span><br>
-                <span><strong><u>PREÇO</u></strong></span>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="/SiteDeCasamento-main/Assets/presente.jpg" width="200px"><br>
-                <span><strong>PRESENTE</strong></span><br>
-                <span><strong><u>PREÇO</u></strong></span>
-            </a>
-            </li>
-            <!-- Outros produtos aqui -->
-        </ul>
-              <div>
-              <h4>
-                  Projeto de Site de casamento
-                </h4></div>
+            {% if presentes %}
+            <ul class="presentes-list">
+                {% for presente in presentes %}
+                <li class="card">
+                    {% if presente.foto %}
+                    <img src="{{ presente.foto.url }}" alt="{{ presente.nome }}" class="card-img" />
+                    {% else %}
+                    <img src="https://via.placeholder.com/220x160?text=Presente" alt="{{ presente.nome }}" class="card-img" />
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ presente.nome }}</h3>
+                        <p class="card-desc">{{ presente.descricao|truncatechars:80 }}</p>
+                        <span class="price">R$ {{ presente.preco }}</span>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'adicionar_carrinho' presente.id %}" class="card-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-add-cart">Adicionar ao Carrinho</button>
+                    </form>
+                    {% else %}
+                    <div class="card-login-prompt">
+                        <a href="{% url 'login' %}" class="btn-login-required">Faça login para comprar</a>
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="empty-message">Ainda não há presentes cadastrados.</p>
+            {% endif %}
         </div>
     </main>
+    <footer class="footer">
+        <p>Projeto de Site de casamento</p>
+    </footer>
 </body>
 </html>

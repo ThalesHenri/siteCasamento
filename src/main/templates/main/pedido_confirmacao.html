@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Confirmado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #EAE3D8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-nav {
+            background-color: #4A5334;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-nav .logo {
+            color: #EAE3D8;
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .top-nav .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .top-nav a {
+            color: #EAE3D8;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.8;
+        }
+
+        .top-nav .user-info {
+            color: #EAE3D8;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #4A5334;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .pedido-info {
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row.large {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #4A5334;
+        }
+
+        .info-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .items-section {
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .items-section h3 {
+            color: #4A5334;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-name {
+            color: #333;
+        }
+
+        .item-qty {
+            color: #666;
+            margin-right: 20px;
+        }
+
+        .item-price {
+            color: #4A5334;
+            font-weight: 600;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-top: 2px solid #eee;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #4A5334;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background-color: #4A5334;
+            color: #EAE3D8;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a4227;
+        }
+
+        .btn-secondary {
+            background-color: #D9995A;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #c68547;
+        }
+
+        .footer {
+            background-color: #4A5334;
+            color: #EAE3D8;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        .message {
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="{% url 'home' %}" class="logo">Ailka & Vínicius</a>
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+            <span class="user-info">
+                <strong>{{ user.get_full_name|default:user.username }}</strong>
+                <a href="{% url 'logout' %}">Sair</a>
+            </span>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h1>Pedido Confirmado!</h1>
+        <p class="subtitle">Obrigado por sua encomenda. Seu pedido foi criado com sucesso.</p>
+
+        <div class="message success">
+            Seu pedido foi salvo com sucesso! Você receberá uma confirmação no seu email.
+        </div>
+
+        <div class="pedido-info">
+            <div class="info-row">
+                <span class="info-label">Número do Pedido:</span>
+                <span class="info-value">#{{ pedido.id }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Data do Pedido:</span>
+                <span class="info-value">{{ pedido.data_compra|date:"d/m/Y H:i" }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Convidado:</span>
+                <span class="info-value">{{ pedido.convidado.get_full_name|default:pedido.convidado.username }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="info-value">
+                    {% if pedido.pago %}
+                    ✅ Pago
+                    {% else %}
+                    ⏳ Pendente
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="items-section">
+            <h3>Itens do Pedido</h3>
+            {% for item in itens %}
+            <div class="item-row">
+                <div class="item-name">{{ item.presente.nome }}</div>
+                <div>
+                    <span class="item-qty">Qtd: {{ item.quantidade }}</span>
+                    <span class="item-price">R$ {{ item.valor }}</span>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="total-row">
+                <span>Total do Pedido:</span>
+                <span>R$ {{ total }}</span>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="{% url 'lista_de_presentes' %}" class="btn btn-primary">Continuar Comprando</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Voltar ao Início</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Projeto de Site de Casamento</p>
+    </footer>
+</body>
+</html>

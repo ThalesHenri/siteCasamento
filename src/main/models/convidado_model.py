@@ -1,6 +1,20 @@
 from django.db import models
-from main.models.user_model import User
+from django.contrib.auth.models import AbstractUser
 
-class Convidado(models.Model):
-    user = models.OnetoOneField(User, on_delete=models.CASCADE)
-    telefone = models.CharField(max_length=20)
+
+class Convidado(AbstractUser):
+    
+
+
+    telefone = models.CharField(max_length=20, blank=True)
+    presenca_confirmada = models.BooleanField(
+        default=False,
+        help_text="Marque se o convidado confirmou presença",
+    )
+
+    class Meta:
+        verbose_name = "convidado"
+        verbose_name_plural = "convidados"
+
+    def __str__(self):
+        return self.get_full_name() or self.username
