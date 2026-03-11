@@ -1,3 +1,5 @@
+import mercadopago
+
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.decorators import login_required
@@ -104,14 +106,15 @@ class CarrinhoView(View):
                 # Converter string id para integer
                 presente = Presente.objects.get(id=int(presente_id_str))
                 quantidade = item.get('quantidade', 1)
-                valor = Decimal(str(item.get('preco', '0')))
+                # preço do carrinho (string) convertido para Decimal
+                valor_decimal = Decimal(str(item.get('preco', '0')))
 
-                if quantidade > 0 and valor > 0:
+                if quantidade > 0 and valor_decimal > 0:
                     PedidoItem.objects.create(
                         pedido=pedido,
                         presente=presente,
                         quantidade=quantidade,
-                        valor=valor,
+                        valor=valor_decimal,
                     )
                     items_added += 1
             except (Presente.DoesNotExist, ValueError, TypeError):
@@ -174,11 +177,10 @@ class PedidoConfirmacaoView(View):
         # Calcular total de forma segura
         total = Decimal('0')
         for item in itens:
-            try:
-                subtotal = Decimal(str(item.valor)) * Decimal(str(item.quantidade))
-                total += subtotal
-            except (ValueError, TypeError):
-                subtotal = Decimal('0')
+            valor = item.valor if item.valor is not None else Decimal('0.00')
+            quantidade = item.quantidade if item.quantidade is not None else 0
+            subtotal = Decimal(str(valor)) * Decimal(str(quantidade))
+            total += subtotal
 
         return render(request, self.template_name, {
             'pedido': pedido,
@@ -186,3 +188,60 @@ class PedidoConfirmacaoView(View):
             'total': total,
         })
 
+
+
+class PagamentoView(View):
+    """Gera a preferência de pagamento no Mercado Pago a partir do pedido.
+
+    O valor é calculado no servidor para evitar strings mal formatadas ou
+    informações manipuladas via URL.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.sdk = mercadopago.SDK(
+            "APP_USR-3855686192526448-031011-1bd32502cd9e0ea24ff3ea2f18db2a04-3257118066"
+        )
+
+    def get(self, request, *args, **kwargs):
+        pedido_id = kwargs.get("pedido_id")
+        pedido = Pedido.objects.get(id=pedido_id, convidado=request.user)
+
+        # soma segura dos itens do pedido
+        total = sum(
+            (item.valor or Decimal("0.00")) * (item.quantidade or 0)
+            for item in pedido.items.all()
+        )
+
+        preference_data = {
+            "items": [
+                {
+                    "id": str(pedido.id),
+                    "title": f"Presente do convidado {pedido.convidado.first_name}",
+                    "quantity": 1,
+                    "unit_price": float(total),
+                    "currency_id": "BRL",
+                }
+            ],
+            "back_urls": {
+                "success": "http://127.0.0.1:8000/pedido/confirmacao/{}".format(
+                    pedido.id
+                ),
+                "failure": "http://127.0.0.1:8000/pedido/confirmacao/{}".format(
+                    pedido.id
+                ),
+                "pending": "http://127.0.0.1:8000/pedido/confirmacao/{}".format(
+                    pedido.id
+                ),
+            },
+            "payer": {
+                "name": pedido.convidado.first_name,
+                "surname": pedido.convidado.last_name,
+            },
+        }
+        result = self.sdk.preference().create(preference_data)
+        if result["status"] != 201:
+            raise Exception(result["response"])
+        pagamento_info = result["response"]
+
+        return redirect(pagamento_info["init_point"])

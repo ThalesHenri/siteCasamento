@@ -4,7 +4,9 @@ from django.conf.urls.static import static
 from .views import (
     HomeView, StoryView, ListaDePresentesView, ConfirmarPresencaView,
     RegisterView, LoginView, LogoutView,
-    AddToCartView, CarrinhoView, RemoveFromCartView, PedidoConfirmacaoView
+    AddToCartView, CarrinhoView, RemoveFromCartView, PedidoConfirmacaoView,
+    PagamentoView
+
 )
 
 
@@ -22,6 +24,7 @@ urlpatterns = [
     path('carrinho/', CarrinhoView.as_view(), name='carrinho'),
     path('carrinho/remover/<int:presente_id>/', RemoveFromCartView.as_view(), name='remover_carrinho'),
     path('pedido/confirmacao/<int:pedido_id>/', PedidoConfirmacaoView.as_view(), name='pedido_confirmacao'),
+    path('pagamento/<int:pedido_id>/', PagamentoView.as_view(), name='pagamento'),
 ]
 
 
