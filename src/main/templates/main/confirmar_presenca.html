@@ -9,16 +9,57 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body, html {margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; background:#EAE3D8;}
-        .container {max-width:400px; margin:100px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center;}
-        h1{color:#4A5334; font-family:'Cormorant Garamond',serif; margin-bottom:20px;}
-        .btn{padding:12px 24px;border:none;border-radius:6px;background:#4A5334;color:#EAE3D8;font-size:1em;cursor:pointer;transition:background .3s;}
-        .btn:hover{background:#3a4227;}
+        body, html {margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; background:#DADED8;}
+        .container {max-width:400px; margin:100px auto; background:#DADED8; padding:30px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center;}
+        h1{color:#354c2d; font-family:'Cormorant Garamond',serif; margin-bottom:20px;}
+        .btn{padding:12px 24px;border:none;border-radius:6px;background:#354c2d;color:#DADED8;font-size:1em;cursor:pointer;transition:background .3s;}
+        .btn:hover{background:#354c2d;}
         .status{margin-bottom:20px;font-size:1.1em;color:#555;}
-        a {color:#4A5334; text-decoration:none;}
+        a {color:#354c2d; text-decoration:none;}
+        .top-nav {
+            background-color: #4e653d;
+            padding: 0 20px;
+            height: 75px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+         .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+        .logo-img {
+    width: 250px; /* Controla a largura. Aumente para 300px ou diminua para 200px se precisar */
+    height: auto; /* Deixa a altura se ajustar sozinha para não distorcer */
+    transition: transform 0.3s ease;}
+    .footer {
+            background-color: #4e653d;
+            color: #EAE3D8;
+            text-align: center;
+            padding: 5px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
+    <nav class="top-nav">
+    <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo Casamento" class="logo-img">
+    </a>
+    </nav>
     <div class="container">
         <h1>Confirmação de Presença</h1>
         {% if confirmado %}
@@ -32,5 +73,8 @@
             </form>
         {% endif %}
     </div>
+    <footer class="footer">
+    <p>&copy; 2026 Ailka & Vínicius</p>
+</footer>
 </body>
 </html>

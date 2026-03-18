@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagamento PIX - Pedido #{{ pedido.id }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Removido o flex do body para a navbar ocupar o topo inteiro */
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #EAE3D8; 
+            margin: 0; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Faz os itens empilharem verticalmente */
+        }
+        
+        .top-nav {
+            background-color: #4e653d;
+            padding: 0 20px;
+            height: 75px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; /* Garante que ocupa toda a largura */
+        }
+
+        .logo-img {
+            width: 250px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        /* Container para centralizar o card no espaço restante */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .pix-card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+            text-align: center; 
+            max-width: 400px; 
+            width: 100%; 
+        }
+
+        .logo-pix { width: 100px; margin-bottom: 20px; }
+        .qr-area { background: #f4f4f4; border: 2px dashed #32BCAD; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .total { font-size: 1.6em; color: #4A5334; font-weight: bold; margin: 10px 0; }
+        .btn-fechar { display: inline-block; margin-top: 20px; color: #666; text-decoration: none; font-size: 0.85em; border-bottom: 1px solid #ccc; }
+        .footer {
+            background-color: #4e653d;
+            color: #EAE3D8;
+            text-align: center;
+            height: 6vh;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo Casamento" class="logo-img">
+        </a>   
+    </nav> 
+
+    <div class="main-content">
+        <div class="pix-card">
+            <img src="{% static 'main/assets/pix-logo2.png' %}" alt="Pix" class="logo-pix">
+            <h2>Pagamento via PIX</h2>
+            <p>Escaneie o código abaixo:</p>
+            
+            <div class="qr-area">
+                <img src="{% static 'main/assets/qr-code.jpg' %}" alt="QR Code" style="width: 70%; height: auto; border-radius: 4px;">
+            </div>
+
+            <div class="total">R$ {{ total }}</div>
+            <p style="font-size: 0.9em; color: #666;">Pedido #{{ pedido.id }}</p>
+            
+            <a href="javascript:window.close()" class="btn-fechar">Fechar esta janela</a>
+        </div>
+    </div>
+    <footer class="footer">
+    <p>&copy; 2026 Ailka & Vínicius</p>
+</footer>
+</body>
+</html>

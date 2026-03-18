@@ -23,6 +23,17 @@
             align-items: center;
             justify-content: center;
         }
+        .top-nav {
+            background-color: #4e653d;
+            padding: 0 20px;
+            height: 75px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
 
         .header {
             position: fixed;
@@ -166,12 +177,28 @@
         .register-link a:hover {
             text-decoration: underline;
         }
+        
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+         .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+        .logo-img {
+    width: 250px; /* Controla a largura. Aumente para 300px ou diminua para 200px se precisar */
+    height: auto; /* Deixa a altura se ajustar sozinha para não distorcer */
+    transition: transform 0.3s ease;}
 
         .footer {
             background-color: #4A5334;
             color: #EAE3D8;
             text-align: center;
-            padding: 20px;
+            padding: 5px;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -181,6 +208,9 @@
     </style>
 </head>
 <body>
+    <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo Casamento" class="logo-img">
+    </a>
     <header class="header">
         <h1>Ailka & Vínicius</h1>
         <nav class="header-nav">
@@ -224,7 +254,7 @@
     </div>
 
     <footer class="footer">
-        <p>Projeto de Site de Casamento</p>
-    </footer>
+    <p>&copy; 2026 Ailka & Vínicius</p>
+</footer>
 </body>
 </html>
