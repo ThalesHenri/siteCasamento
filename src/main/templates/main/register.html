@@ -8,240 +8,155 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #EAE3D8;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-.top-nav {
-            background-color: #4e653d;
-            padding: 0 20px;
-            height: 75px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
+/* 1. Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-         .logo:hover .logo-img {
-            transform: scale(1.05);
-        }
-        .logo-img {
-    width: 250px; /* Controla a largura. Aumente para 300px ou diminua para 200px se precisar */
-    height: auto; /* Deixa a altura se ajustar sozinha para não distorcer */
-    transition: transform 0.3s ease;}
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: #4A5334;
-            padding: 15px 20px;
-            text-align: center;
-            z-index: 100;
-        }
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #697e50; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
 
-        .header h1 {
-            color: #EAE3D8;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2em;
-            font-weight: 400;
-            margin: 0;
-        }
 
-        .header-nav {
-            margin-top: 8px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
+.container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 450px;
+    margin: 80px auto 40px auto; /* Espaço para o header fixo */
+}
 
-        .header-nav a {
-            color: #EAE3D8;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: opacity 0.3s;
-        }
+h2 {
+    color: #4A5334;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    text-align: center;
+}
 
-        .header-nav a:hover {
-            opacity: 0.8;
-        }
+/* 3. Estilização dos Campos */
+.form-group {
+    margin-bottom: 15px;
+}
 
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-            margin-top: 80px;
-        }
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #444;
+    font-weight: 500;
+    font-size: 0.9em;
+}
 
-        h2 {
-            color: #4A5334;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2em;
-            margin-bottom: 30px;
-            text-align: center;
-        }
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+}
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+input:focus {
+    outline: none;
+    border-color: #4A5334;
+    box-shadow: 0 0 0 3px rgba(74, 83, 52, 0.1);
+}
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            color: #333;
-            font-weight: 500;
-            font-size: 0.95em;
-        }
+/* 4. Grid para Nome/Sobrenome e Senhas */
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+/* 5. Botão de Registro */
+.btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #4A5334;
+    color: #EAE3D8;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 0.95em;
-            font-family: 'Montserrat', sans-serif;
-            transition: border-color 0.3s;
-        }
+.btn:hover {
+    background-color: #354c2d;
+}
 
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus,
-        input[type="tel"]:focus {
-            outline: none;
-            border-color: #4A5334;
-            box-shadow: 0 0 0 2px rgba(74, 83, 52, 0.1);
-        }
+/* 6. Link de Login */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
 
-        .password-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+.login-link a {
+    color: #4A5334;
+    text-decoration: none;
+    font-weight: 700;
+}
 
-        .password-group input {
-            width: 100%;
-        }
+.login-link a:hover {
+    text-decoration: underline;
+}
 
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
+/* ============================================================
+   RESPONSIVIDADE (MOBILE)
+   ============================================================ */
+@media (max-width: 600px) {
+    body {
+        justify-content: flex-start; /* Evita que o topo suma no scroll */
+        padding-top: 100px;
+    }
 
-        .messages {
-            margin-bottom: 20px;
-        }
+    .container {
+        width: 95%;
+        padding: 25px 20px;
+    }
 
-        .message {
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            font-size: 0.9em;
-        }
+    /* Transforma as colunas duplas em simples no celular */
+    .row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
 
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
+    h2 {
+        font-size: 1.8em;
+    }
 
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
+    input {
+        font-size: 16px !important; /* Impede o zoom forçado no iPhone */
+    }
 
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #4A5334;
-            color: #EAE3D8;
-            border: none;
-            border-radius: 6px;
-            font-size: 1em;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-
-        .btn:hover {
-            background-color: #3a4227;
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .login-link a {
-            color: #4A5334;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-
-        .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .row.full {
-            grid-column: 1 / -1;
-        }
-
-        .footer {
-            background-color: #4A5334;
-            color: #EAE3D8;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.9em;
-        }
-        .footer {
-            background-color: #4e653d;
-            color: #EAE3D8;
-            text-align: center;
-            padding: 5px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.9em;
-        }
+    .footer {
+        position: relative !important;
+        margin-top: 30px;
+    }
+}        
     </style>
 </head>
 <body>

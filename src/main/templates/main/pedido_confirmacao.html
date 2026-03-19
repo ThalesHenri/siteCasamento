@@ -4,42 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedido Confirmado</title>
+    <title>Pedido Confirmado | Ailka & Vinícius</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background-color: #EAE3D8; min-height: 100vh; display: flex; flex-direction: column; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #697e50; /* Mantendo o padrão verde das outras telas */
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
         
-        .top-nav { background-color: #4e653d; padding: 0 20px; height: 75px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; }
-        .logo-img { width: 250px; height: auto; transition: transform 0.3s ease; }
+        /* --- NAVBAR PADRÃO --- */
+        .top-nav { 
+            background-color: #354c2d; 
+            padding: 0 40px; 
+            height: 75px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 999; 
+        }
+        .logo-img { width: 220px; height: auto; transition: transform 0.3s ease; }
         .nav-links { display: flex; gap: 20px; align-items: center; }
-        .top-nav a { color: #EAE3D8; text-decoration: none; font-size: 0.95em; }
+        .nav-links a, .user-info { color: #DADED8; text-decoration: none; font-size: 0.9em; }
 
         .container { flex: 1; max-width: 800px; margin: 0 auto; width: 100%; padding: 40px 20px; text-align: center; }
         .success-icon { font-size: 4em; margin-bottom: 20px; }
-        h1 { color: #4A5334; font-family: 'Cormorant Garamond', serif; font-size: 2.5em; margin-bottom: 10px; }
+        h1 { color: #DADED8; font-family: 'Cormorant Garamond', serif; font-size: 2.8em; margin-bottom: 10px; }
         
-        .message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 15px; border-radius: 6px; margin-bottom: 25px; }
-
-        .pedido-info, .items-section, .payment-box { background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px; text-align: left; }
+        /* --- CAIXAS DE CONTEÚDO --- */
+        .pedido-info, .items-section, .payment-box { 
+            background-color: #DADED8; 
+            padding: 24px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            margin-bottom: 30px; 
+            text-align: left; 
+        }
         
-        .payment-box { border: 2px solid #4A5334; text-align: center; }
-        .payment-box h3 { margin-bottom: 20px; color: #4A5334; font-family: 'Cormorant Garamond', serif; font-size: 1.8em; }
+        .payment-box { border: 3px solid #354c2d; text-align: center; }
+        .payment-box h3 { margin-bottom: 20px; color: #354c2d; font-family: 'Cormorant Garamond', serif; font-size: 1.8em; font-weight: bold; }
 
-        .info-row, .item-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
-        .info-value, .item-price { color: #333; font-weight: 600; }
-        .total-row { display: flex; justify-content: space-between; padding: 16px 0; border-top: 2px solid #eee; font-size: 1.2em; font-weight: 700; color: #4A5334; }
+        .info-row, .item-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #ccc; color: #333; }
+        .info-value, .item-price { color: #354c2d; font-weight: 700; }
+        .total-row { display: flex; justify-content: space-between; padding: 16px 0; border-top: 2px solid #354c2d; font-size: 1.3em; font-weight: 700; color: #354c2d; }
 
+        /* --- BOTÕES --- */
         .btn-container { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s; cursor: pointer; font-family: 'Montserrat', sans-serif; width: 100%; max-width: 300px; }
+        .btn { 
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px; 
+            padding: 15px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; 
+            transition: 0.3s; cursor: pointer; width: 100%; max-width: 300px; border: none;
+            text-transform: uppercase; font-size: 0.85em;
+        }
         
-        .btn-credit { background-color: #4A5334; color: #EAE3D8; }
+        .btn-credit { background-color: #354c2d; color: #DADED8; }
         .btn-pix { background-color: #32BCAD; color: white; }
         .btn-secondary { background-color: #D9995A; color: white; width: auto; }
         
-        .footer { background-color: #4e653d; color: #EAE3D8; text-align: center; padding: 5px; margin-top: auto; }
+        .footer { background-color: #354c2d; color: #DADED8; text-align: center; padding: 20px; margin-top: auto; font-size: 0.85em; }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 600px) {
+            .top-nav { flex-direction: column !important; height: auto !important; padding: 10px !important; gap: 8px !important; }
+            .logo-img { width: 140px !important; }
+            .nav-links { font-size: 0.8rem !important; }
+            h1 { font-size: 2em !important; }
+            .info-row, .item-row { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .info-value, .item-price { align-self: flex-end; }
+            .btn { max-width: 100% !important; }
+        }
     </style>
 </head>
 <body>
@@ -49,9 +90,9 @@
         </a>
         <div class="nav-links">
             {% if user.is_authenticated %}
-            <span style="color: white; font-size: 0.9em;">
-                <strong>{{ user.get_full_name|default:user.username }}</strong>
-                <a href="{% url 'logout' %}" style="margin-left: 10px; color: #EAE3D8;">Sair</a>
+            <span class="user-info">
+                <strong>{{ user.username }}</strong>
+                <a href="{% url 'logout' %}" style="margin-left: 10px; text-decoration: underline;">Sair</a>
             </span>
             {% endif %}
         </div>
@@ -61,9 +102,9 @@
         <div class="success-icon">✅</div>
         <h1>Pedido Confirmado!</h1>
         
-        <div class="message success">
+        <p style="color: #DADED8; margin-bottom: 25px; font-size: 1.1em;">
             Seu pedido foi salvo com sucesso! Selecione a forma de pagamento:
-        </div>
+        </p>
 
         <div class="payment-box">
             <h3>Finalizar Pagamento</h3>
@@ -71,7 +112,7 @@
                 <a href="{% url 'pagamento' pedido.id %}" class="btn btn-credit">
                     💳 Cartão de Crédito
                 </a>
-                <a href="{% url 'gerar_pix' pedido.id %}" target="_blank" class="btn btn-pix">
+                <a href="{% url 'gerar_pix' pedido.id %}" class="btn btn-pix">
                     <img src="{% static 'main/assets/pix-preto2.png' %}" height="18" style="filter: brightness(0) invert(1);">
                     Pagar com PIX
                 </a>
@@ -80,11 +121,11 @@
 
         <div class="pedido-info">
             <div class="info-row"><span>Número do Pedido:</span><span class="info-value">#{{ pedido.id }}</span></div>
-            <div class="info-row"><span>Status:</span><span class="info-value">{% if pedido.pago %}✅ Pago{% else %}⏳ Pendente{% endif %}</span></div>
+            <div class="info-row"><span>Status:</span><span class="info-value">{% if pedido.pago %}✅ Pago{% else %}⏳ Aguardando Pagamento{% endif %}</span></div>
         </div>
 
         <div class="items-section">
-            <h3 style="text-align: center; color: #4A5334; margin-bottom: 15px;">Resumo dos Itens</h3>
+            <h3 style="text-align: center; color: #354c2d; margin-bottom: 15px; font-family: 'Cormorant Garamond', serif; font-size: 1.6em;">Resumo dos Itens</h3>
             {% for item in itens %}
             <div class="item-row">
                 <span>{{ item.presente.nome }} (x{{ item.quantidade }})</span>
@@ -99,10 +140,10 @@
 
         <div class="btn-container" style="margin-top: 20px;">
             <a href="{% url 'lista_de_presentes' %}" class="btn btn-secondary">Continuar Comprando</a>
-            <a href="{% url 'home' %}" class="btn btn-secondary" style="background-color: #666;">Início</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary" style="background-color: #555;">Voltar ao Início</a>
         </div>
     </div>
 
-    <footer class="footer"><p>Ailka & Vinícius - 2026</p></footer>
+    <footer class="footer"><p>&copy; 2026 Ailka & Vínicius</p></footer>
 </body>
 </html>

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <style>
         * {
             margin: 0;
@@ -41,7 +42,7 @@
             left: 0;
             right: 0;
             background-color: #4A5334;
-            padding: 15px 20px;
+           padding: 15px 20px;
             text-align: center;
             z-index: 100;
         }
@@ -204,6 +205,77 @@
             left: 0;
             right: 0;
             font-size: 0.9em;
+        }
+        /* ============================================================
+           RESPONSIVIDADE: PÁGINA DE LOGIN
+           ============================================================ */
+
+        @media (max-width: 600px) {
+            body {
+                /* Muda para flex-start para o formulário não sumir no topo ao abrir o teclado */
+                align-items: flex-start;
+                padding-top: 100px;
+                background-color: #697e50; /* Mantendo o padrão verde das outras telas */
+            }
+
+            /* Navbar e Header Compactos */
+            .header {
+                padding: 1px !important;
+            }
+
+            .header h1 {
+                font-size: 1.5em !important;
+            }
+
+            .header-nav {
+                gap: 15px !important;
+            }
+
+            .logo-img {
+                width: 150px !important; /* Logo menor no mobile */
+            }
+
+            /* Ajuste do Card de Login */
+            .container {
+                width: 90% !important;
+                margin: 20px auto !important;
+                padding: 30px 20px !important;
+                margin-top: 10px !important; /* Ajuste por causa do header fixo */
+            }
+
+            h2 {
+                font-size: 1.8em !important;
+                margin-bottom: 20px !important;
+            }
+
+            /* Inputs maiores para facilitar o toque */
+            input[type="text"],
+            input[type="password"] {
+                padding: 12px !important;
+                font-size: 16px !important; /* Evita zoom automático no iPhone */
+            }
+
+            .btn {
+                padding: 14px !important;
+                font-size: 1.1em !important;
+            }
+
+            /* Footer */
+            .footer {
+                position: relative !important; /* Deixa de ser fixo para não atrapalhar o scroll */
+                margin-top: 40px !important;
+                padding: 15px !important;
+            }
+        }
+
+        /* Ajuste para celulares deitados (Landscape) */
+        @media (max-height: 500px) {
+            .header {
+                position: relative !important;
+            }
+            body {
+                padding-top: 20px;
+            }
         }
     </style>
 </head>

@@ -3,96 +3,148 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagamento PIX - Pedido #{{ pedido.id }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Removido o flex do body para a navbar ocupar o topo inteiro */
         body { 
             font-family: 'Montserrat', sans-serif; 
-            background-color: #EAE3D8; 
+            background-color: #697e50; 
             margin: 0; 
             min-height: 100vh;
             display: flex;
-            flex-direction: column; /* Faz os itens empilharem verticalmente */
+            flex-direction: column;
         }
         
         .top-nav {
-            background-color: #4e653d;
-            padding: 0 20px;
-            height: 75px;
+            background-color: #354c2d;
+            padding: 10px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            width: 100%; /* Garante que ocupa toda a largura */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .logo-img {
-            width: 250px;
+            width: 200px;
             height: auto;
-            transition: transform 0.3s ease;
         }
 
-        /* Container para centralizar o card no espaço restante */
         .main-content {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .pix-card { 
             background: white; 
-            padding: 40px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
             text-align: center; 
-            max-width: 400px; 
+            max-width: 380px; 
             width: 100%; 
         }
 
-        .logo-pix { width: 100px; margin-bottom: 20px; }
-        .qr-area { background: #f4f4f4; border: 2px dashed #32BCAD; padding: 20px; margin: 20px 0; border-radius: 8px; }
-        .total { font-size: 1.6em; color: #4A5334; font-weight: bold; margin: 10px 0; }
-        .btn-fechar { display: inline-block; margin-top: 20px; color: #666; text-decoration: none; font-size: 0.85em; border-bottom: 1px solid #ccc; }
+        .logo-pix { width: 80px; margin-bottom: 15px; }
+        
+        .qr-area { 
+            background: #f9f9f9; 
+            border: 2px dashed #32BCAD; 
+            padding: 15px; 
+            margin: 20px 0; 
+            border-radius: 12px; 
+        }
+
+        .total { 
+            font-size: 1.8em; 
+            color: #4A5334; 
+            font-weight: bold; 
+            margin: 10px 0; 
+        }
+
+        /* Estilo para o Copia e Cola */
+        .copy-paste-box {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            word-break: break-all;
+            margin: 15px 0;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+
+        .btn-copy {
+            background-color: #32BCAD;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn-fechar { 
+            display: inline-block; 
+            margin-top: 15px; 
+            color: #888; 
+            text-decoration: none; 
+            font-size: 0.8em; 
+        }
+
         .footer {
-            background-color: #4e653d;
+            background-color: #354c2d;
             color: #EAE3D8;
             text-align: center;
-            height: 6vh;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.9em;
+            padding: 15px 0;
+            font-size: 0.85em;
         }
     </style>
 </head>
 <body>
     <nav class="top-nav">
-        <a href="{% url 'home' %}" class="logo">
-            <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo Casamento" class="logo-img">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo" class="logo-img">
         </a>   
     </nav> 
 
     <div class="main-content">
         <div class="pix-card">
             <img src="{% static 'main/assets/pix-logo2.png' %}" alt="Pix" class="logo-pix">
-            <h2>Pagamento via PIX</h2>
-            <p>Escaneie o código abaixo:</p>
+            <h2 style="color: #333; margin-bottom: 5px;">R$ {{ total }}</h2>
+            <p style="color: #666; margin-top: 0;">Pedido #{{ pedido.id }}</p>
             
             <div class="qr-area">
-                <img src="{% static 'main/assets/qr-code.jpg' %}" alt="QR Code" style="width: 70%; height: auto; border-radius: 4px;">
+                <img src="{% static 'main/assets/qr-code.jpg' %}" alt="QR Code" style="width: 100%; max-width: 200px;">
             </div>
 
-            <div class="total">R$ {{ total }}</div>
-            <p style="font-size: 0.9em; color: #666;">Pedido #{{ pedido.id }}</p>
+            <p style="font-size: 0.9em; font-weight: bold;">Pix Copia e Cola:</p>
+            <input type="text" value="SUA_CHAVE_PIX_AQUI" id="pixCode" readonly style="position: absolute; left: -9999px;">
+            <div class="copy-paste-box" onclick="copyPix()">
+                00020101021126580014br.gov.bcb.pix... (clique para copiar)
+            </div>
+            <button class="btn-copy" onclick="copyPix()">Copiar Código Pix</button>
             
-            <a href="javascript:window.close()" class="btn-fechar">Fechar esta janela</a>
+            <a href="{% url 'lista_de_presentes' %}" class="btn-fechar">Voltar para lista de presentes</a>
         </div>
     </div>
+
     <footer class="footer">
-    <p>&copy; 2026 Ailka & Vínicius</p>
-</footer>
+        <p>&copy; 2026 Ailka & Vinícius</p>
+    </footer>
+
+    <script>
+        function copyPix() {
+            const code = "00020126580014br.gov.bcb.pix0136d2c63574-e67e-443b-9338-47a13642c3625204000053039865802BR5924Ailka Beatriz Gouveia Do6009Sao Paulo62230519daqr3336377672339606304DA74"; // Substitua pela variável real
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Código Pix copiado com sucesso!");
+            });
+        }
+    </script>
 </body>
 </html>

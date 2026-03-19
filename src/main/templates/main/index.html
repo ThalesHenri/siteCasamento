@@ -14,8 +14,11 @@
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     
     <style>
+        body{
+            background-color: #697e50;
+        }
         .top-nav {
-            background-color: #4e653d;
+            background-color: #354c2d;
             padding: 0 20px;
             height: 75px;
             display: flex;
@@ -52,7 +55,7 @@
         }
 
         .top-nav a {
-            color: #DADED8;
+            color: #354c2d;
             text-decoration: none;
             font-size: 0.95em;
             transition: opacity 0.3s;
@@ -63,7 +66,7 @@
         }
 
         .top-nav .user-info {
-            color: #DADED8;
+            color: #354c2d;
             font-size: 0.9em;
             display: flex;
             align-items: center;
@@ -84,24 +87,31 @@
         }
         
         .actions {
-            display: flex;
-            gap: 15px; 
-            justify-content: center; 
-            margin: 20px 0;
-            flex-wrap: wrap; 
-        }
+    display: flex;
+    flex-direction: column; /* Empilha por padrão */
+    align-items: center;    /* Centraliza os itens horizontalmente */
+    gap: 15px; 
+    margin: 30px auto;      /* Margem em cima/baixo e auto nas laterais */
+    width: 100%;
+    max-width: 400px;       /* Limita a largura para não ficarem gigantes no PC */
+    padding: 0 20px;        /* Respiro lateral */
+    box-sizing: border-box;
+}
 
-        .actions .btn-secondary {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #4e653d; 
-            color: #DADED8;           
-            border-radius: 8px;       
-            text-decoration: none;    
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease-in-out; 
-        }
+.actions .btn-secondary {
+    display: block;         /* Ocupa a largura do container */
+    width: 100%;            /* Garante que todos tenham o mesmo tamanho */
+    padding: 15px 0;        /* Padding vertical fixo, horizontal zero */
+    background-color: #354c2d; 
+    color: #DADED8;           
+    border-radius: 8px;       
+    text-decoration: none;    
+    font-size: 16px;        /* Um pouco maior para facilitar o clique */
+    font-weight: 500;
+    text-align: center;     /* Garante que o texto fique no meio do botão */
+    transition: all 0.3s ease-in-out; 
+    border: none;
+}
 
         .actions .btn-secondary:hover {
             background-color: #DADED8; 
@@ -139,8 +149,136 @@
         }
         
         .footer {
-            background-color: #4e653d;
+            background-color: #354c2d;
         }
+        /* ============================================================
+   RESPONSIVIDADE: PÁGINA INICIAL (INDEX)
+   ============================================================ */
+
+/* --- AJUSTES PARA TABLETS (Até 992px) --- */
+@media (max-width: 992px) {
+    .logo-img {
+        width: 200px;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+}
+
+/* --- AJUSTES PARA CELULARES (Até 600px) --- */
+@media (max-width: 600px) {
+    /* 1. Navbar: Empilha a Logo e os Links */
+    .top-nav {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 1px !important;
+        gap: 15px !important;
+        position: relative !important; /* Evita que ela cubra o carrossel no mobile */
+    }
+
+    .logo-img {
+        width: 180px !important;
+    }
+
+    .nav-links {
+        gap: 15px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .user-info {
+        flex-direction: column;
+        gap: 5px !important;
+        text-align: center;
+    }
+
+    /* 2. Hero: Reduz o banner para não ocupar a tela toda */
+    .hero {
+        height: 50vh !important;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem !important;
+    }
+
+    /* 3. Carrossel: Ajusta a altura das fotos do casal */
+    .carousel-wrapper {
+        max-width: 100% !important;
+        border-radius: 0 !important;
+    }
+
+    .image-carousel img {
+        height: 300px !important; /* Altura ideal para celular */
+        object-fit: cover;
+    }
+
+    .carousel-btn {
+        padding: 10px !important;
+        font-size: 1rem !important;
+    }
+
+    /* 4. Botões de Ação: Um abaixo do outro (100% de largura) */
+    .actions {
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 0 30px !important; /* Aumenta o respiro lateral no celular */
+    }
+
+    .actions .btn-secondary {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important; /* Remove qualquer margem residual */
+    }
+
+    /* 5. Mensagens Flutuantes */
+    .messages {
+        left: 10px !important;
+        right: 10px !important;
+        top: 20px !important;
+        .actions {
+    display: flex;
+    flex-direction: column; /* Empilha por padrão */
+    align-items: center;    /* Centraliza os itens horizontalmente */
+    gap: 15px; 
+    margin: 30px auto;      /* Margem em cima/baixo e auto nas laterais */
+    width: 100%;
+    max-width: 400px;       /* Limita a largura para não ficarem gigantes no PC */
+    padding: 0 20px;        /* Respiro lateral */
+    box-sizing: border-box;
+}
+
+.actions .btn-secondary {
+    display: block;         /* Ocupa a largura do container */
+    width: 100%;            /* Garante que todos tenham o mesmo tamanho */
+    padding: 15px 0;        /* Padding vertical fixo, horizontal zero */
+    background-color: #354c2d; 
+    color: #DADED8;           
+    border-radius: 8px;       
+    text-decoration: none;    
+    font-size: 16px;        /* Um pouco maior para facilitar o clique */
+    font-weight: 500;
+    text-align: center;     /* Garante que o texto fique no meio do botão */
+    transition: all 0.3s ease-in-out; 
+    border: none;
+}max-width: none !important;
+    }
+
+    /* 6. Footer */
+    .footer {
+        padding: 20px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Ajuste específico para celulares muito pequenos (iPhone SE) */
+@media (max-width: 380px) {
+    .hero h1 {
+        font-size: 1.8rem !important;
+    }
+    .logo-img {
+        width: 150px !important;
+    }
+}
     </style>
 </head>
 <body>

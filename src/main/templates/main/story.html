@@ -7,6 +7,11 @@
     <title>Nossa História</title>
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <style>
+        body {
+    background-color: #697e50; /* Garante o fundo verde */
+    margin: 0;
+    padding-bottom: 60px; /* Evita que o rodapé fixo cubra o conteúdo */
+}
         .story-container {max-width:800px; margin:100px auto; padding:20px; background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
         .story-image {width:100%; border-radius:12px;}
         .story-text {margin-top:20px; font-size:1.1em; color:#333; line-height:1.6;}
@@ -14,7 +19,7 @@
         .back-link a {background:#4A5334;color:#EAE3D8;padding:10px 20px;border-radius:6px;text-decoration:none;transition:background .3s;}
         .back-link a:hover {background:#3a4227;}
         .top-nav {
-            background-color: #4e653d;
+            background-color: #354c2d;
             padding: 0 20px;
             height: 75px;
             display: flex;
@@ -39,7 +44,7 @@
     height: auto; /* Deixa a altura se ajustar sozinha para não distorcer */
     transition: transform 0.3s ease;}
         .footer {
-            background-color: #4e653d;
+            background-color: #354c2d;
             color: #EAE3D8;
             text-align: center;
             padding: 5px;
@@ -49,6 +54,27 @@
             right: 0;
             font-size: 0.9em;
         }
+        @media (max-width: 768px) {
+    .story-container {
+        width: 90% !important;
+        margin: 20px auto !important;
+        padding: 15px !important;
+    }
+    
+    .story-text {
+        font-size: 1rem !important;
+    }
+
+    .top-nav {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 15px !important;
+    }
+
+    .logo-img {
+        width: 180px !important;
+    }
+}
     </style>
 </head>
 <body>
