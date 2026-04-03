@@ -55,25 +55,28 @@
 
 <main class="container">
     <section class="carousel-section">
-        <div class="carousel-wrapper">
-            <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
-            <div class="image-carousel">
-                <div class="carousel-item active">
-                    <img src="../../../static/main/assets/Ailka&Vinicius1.jpeg" alt="Foto do casal 1">
-                </div>
-                <div class="carousel-item">
-                    <img src="../../../static/main/assets/Ailka&Vinicius2.jpeg" alt="Foto do casal 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="../../../static/main/assets/Ailka&Vinicius3.jpeg" alt="Foto do casal 3">
-                </div>
-                <div class="carousel-item">
-                    <img src="../../../static/main/assets/Ailka&Vinicius4.jpeg" alt="Foto do casal 4">
-                </div>
-            </div>
-            <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+    <div class="carousel-wrapper">
+        
+        <button class="carousel-btn prev-btn" aria-label="Anterior">
+            <svg class="arrow-icon" viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
+
+        <div class="image-carousel">
+            <div class="carousel-item"><img src="{% static 'main/assets/Ailka&Vinicius1.jpeg' %}" alt="Foto 1"></div>
+            <div class="carousel-item"><img src="{% static 'main/assets/Ailka&Vinicius2.jpeg' %}" alt="Foto 2"></div>
+            <div class="carousel-item"><img src="{% static 'main/assets/Ailka&Vinicius3.jpeg' %}" alt="Foto 3"></div>
+            <div class="carousel-item"><img src="{% static 'main/assets/Ailka&Vinicius4.jpeg' %}" alt="Foto 4"></div>
         </div>
-    </section>
+
+        <button class="carousel-btn next-btn" aria-label="Próximo">
+            <svg class="arrow-icon" viewBox="0 0 24 24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+        </button>
+    </div>
+</section>
 
     <section class="actions">
         <a href="{% url 'story' %}" class="btn btn-secondary">Relembre nossa história</a>
