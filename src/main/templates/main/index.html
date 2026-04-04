@@ -52,6 +52,29 @@
         </div>
     </div>
 </header>
+<section class="contagem-container">
+    <div class="countdown-container">
+        <h1>Faltam apenas...</h1>
+        <div class="countdown">
+            <div class="time-box">
+                <span id="days">00</span>
+                <p>Dias</p>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <p>Horas</p>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <p>Minutos</p>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <p>Segundos</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 <main class="container">
     <section class="carousel-section">
@@ -77,6 +100,7 @@
         </button>
     </div>
 </section>
+<h6 class="texto-inicial">Criamos esse site para compartilhar com vocês os detalhes da organização do nosso casamento. Estamos muito felizes e contamos com a presença de todos no nosso grande dia! Aqui vocês encontrarão também dicas para hospedagem, salão de beleza, trajes, estacionamento, etc. Ah, é importante também confirmar sua presença. Para isto contamos com sua ajuda clicando no menu “Confirme sua Presença” e preenchendo os dados necessários. Para nos presentear, escolha qualquer item da Lista de Casamento, seja um item de algum dos sites, lojas físicas, ou então vocês podem utilizar a opção de cotas. Fiquem à vontade! Aguardamos vocês no nosso grande dia!</h6>
 
     <section class="actions">
         <a href="{% url 'story' %}" class="btn btn-secondary">Relembre nossa história</a>
@@ -96,6 +120,39 @@
 </footer>
 
 <script>
+// Defina a data do evento (Ano, Mês [0-11], Dia, Hora, Minuto)
+// Exemplo: 20 de Dezembro de 2026 às 18:00
+const targetDate = new Date('August 1, 2026 18:00:00').getTime();
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    // Cálculos de tempo
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    // Inserindo no HTML
+    document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+    document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+    document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+    document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+
+    // Se a data passar
+    if (difference < 0) {
+        clearInterval(interval);
+        document.querySelector('.countdown').innerHTML = "<h2>Já chegou o grande dia!</h2>";
+    }
+}
+
+// Atualiza a cada 1 segundo
+const interval = setInterval(updateCountdown, 1000);
+
+// Chama uma vez no início para não começar em 00
+updateCountdown();
+
     document.addEventListener('DOMContentLoaded', function() {
         const carousel = document.querySelector('.image-carousel');
         const carouselItems = document.querySelectorAll('.carousel-item');
