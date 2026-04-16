@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Italianno&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pQp8Ba3+dJbNLAk0yUWp8XhHliRsr+7X1N2D9c+fT7Uc3eK+zhfkWw/Gcp1pK6C4P+NFS0eQ+ae1zHcZjv8sKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
@@ -110,13 +110,39 @@
         <a href="{% url 'story' %}" class="btn-secondary">Relembre nossa história</a>
         <a href="{% url 'lista_de_presentes' %}" class="btn-secondary">Lista de presentes</a>
         {% if user.is_authenticated %}
-        <a href="{% url 'confirmar_presenca' %}" class="btn-secondary">
-            {% if presenca_confirmada %}Presença Confirmada{% else %}Confirme sua Presença{% endif %}
-        </a>
+            {% if presenca_confirmada %}
+                <button class="btn-secondary" disabled>Presença Confirmada</button>
+            {% else %}
+                <a href="#" id="confirmPresenceBtn" class="btn-secondary">Confirme sua Presença</a>
+                <form id="confirmForm" method="post" action="{% url 'confirmar_presenca' %}" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            {% endif %}
         {% else %}
-        <a href="{% url 'login' %}" class="btn-secondary">Confirme sua Presença</a>
+            <a href="{% url 'login' %}" class="btn-secondary">Confirme sua Presença</a>
         {% endif %}
     </section>
+
+    <div id="confirmModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+            <h2 id="confirmModalTitle">Você confirma sua presença no casamento de Ailka e Vínicius?</h2>
+            <p>Ao confirmar, sua presença será registrada no banco de dados e exibiremos que sua presença está confirmada.</p>
+            <div class="modal-actions">
+                <button id="cancelConfirmBtn" type="button" class="btn-cancel">Cancelar</button>
+                <button id="confirmSubmitBtn" type="button" class="btn-confirm">Confirmar Presença</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="successModalTitle">
+            <h2 id="successModalTitle">Presença confirmada!</h2>
+            <p>Sua presença no casamento de Ailka e Vínicius foi registrada com sucesso.</p>
+            <div class="modal-actions">
+                <button id="successCloseBtn" type="button" class="btn-confirm">Fechar</button>
+            </div>
+        </div>
+    </div>
 </main>
 
 <footer class="footer">
@@ -193,6 +219,70 @@ updateCountdown();
         });
 
         window.addEventListener('resize', updateCarousel);
+
+        const confirmModal = document.getElementById('confirmModal');
+        const confirmPresenceBtn = document.getElementById('confirmPresenceBtn');
+        const cancelConfirmBtn = document.getElementById('cancelConfirmBtn');
+        const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+        const confirmForm = document.getElementById('confirmForm');
+
+        if (confirmPresenceBtn && confirmModal) {
+            confirmPresenceBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                confirmModal.classList.add('active');
+                confirmModal.setAttribute('aria-hidden', 'false');
+            });
+        }
+
+        if (cancelConfirmBtn && confirmModal) {
+            cancelConfirmBtn.addEventListener('click', function() {
+                confirmModal.classList.remove('active');
+                confirmModal.setAttribute('aria-hidden', 'true');
+            });
+        }
+
+        if (confirmSubmitBtn && confirmForm) {
+            confirmSubmitBtn.addEventListener('click', function() {
+                confirmForm.submit();
+            });
+        }
+
+        const successModal = document.getElementById('successModal');
+        const successCloseBtn = document.getElementById('successCloseBtn');
+        const showSuccessModal = {% if confirmada %}true{% else %}false{% endif %};
+
+        if (confirmModal) {
+            confirmModal.addEventListener('click', function(event) {
+                if (event.target === confirmModal) {
+                    confirmModal.classList.remove('active');
+                    confirmModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
+
+        if (showSuccessModal && successModal) {
+            successModal.classList.add('active');
+            successModal.setAttribute('aria-hidden', 'false');
+            if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, '', window.location.pathname);
+            }
+        }
+
+        if (successCloseBtn && successModal) {
+            successCloseBtn.addEventListener('click', function() {
+                successModal.classList.remove('active');
+                successModal.setAttribute('aria-hidden', 'true');
+            });
+        }
+
+        if (successModal) {
+            successModal.addEventListener('click', function(event) {
+                if (event.target === successModal) {
+                    successModal.classList.remove('active');
+                    successModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
     });
 </script>
 

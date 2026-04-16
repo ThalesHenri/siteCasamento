@@ -45,8 +45,19 @@ class CarrinhoView(View):
         for k, v in carrinho.items():
             subtotal = Decimal(v['preco']) * v['quantidade']
             total += subtotal
-            itens.append({'id': k, 'quantidade': v['quantidade'], 'preco': v['preco'], 'subtotal': subtotal})
-        return render(request, 'main/carrinho.html', {'itens': itens, 'total': total})
+            itens.append({
+                'id': k,
+                'nome': v.get('nome', ''),
+                'quantidade': v['quantidade'],
+                'preco': v['preco'],
+                'subtotal': subtotal
+            })
+        carrinho_vazio = not bool(carrinho)
+        return render(request, 'main/carrinho.html', {
+            'itens': itens,
+            'total': total,
+            'carrinho_vazio': carrinho_vazio
+        })
 
     def post(self, request):
         carrinho = request.session.get('carrinho', {})
