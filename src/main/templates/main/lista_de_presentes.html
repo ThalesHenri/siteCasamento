@@ -15,32 +15,42 @@
     <style>
         /* --- ESTILOS GERAIS --- */
         body {
-            background-color: #697e50;
+            background: linear-gradient(125deg, #f1f5ed, #d1e2c0);
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
+            padding-top: 75px;
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
             display: flex;
+            line-height: 1.5;
             flex-direction: column;
             min-height: 100vh;
         }
+        
 
         /* --- NAVBAR --- */
         .top-nav {
-            background-color: #354c2d;
-            padding: 0 30px;
-            height: 75px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
+    width: 100%;
+    height: 75px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(53, 76, 45, 0.90);
+    border-bottom: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    padding: 0 20px;
+    box-shadow: 0 2px 16px rgba(22, 35, 21, 0.25);
+}
 
         .logo-img {
-            width: 220px;
+            width: 190px;
+            max-width: 220px;
             height: auto;
             transition: transform 0.3s ease;
+            display: block;
         }
 
         .nav-links {
@@ -174,35 +184,51 @@
         }
 
         /* --- RESPONSIVIDADE MOBILE --- */
-        @media (max-width: 768px) {
-            .top-nav {
-                flex-direction: column !important;
-                height: auto !important;
-                padding: 10px !important;
-                gap: 10px !important;
-            }
-            .logo-img { width: 150px !important; }
-            .nav-links { 
-                flex-wrap: wrap; 
-                justify-content: center; 
-                font-size: 0.75rem !important;
-                gap: 8px !important;
-            }
-            .messages {
-                left: 20px;
-                right: 20px;
-                top: 110px;
-                max-width: none;
-            }
-            .page-title { font-size: 1.8rem; }
-        }
+        @media (max-width: 992px) {
+    .hero { height: 50vh; min-height: 400px; }
+    .carousel-item img { height: 650px; object-fit: cover; }
+    .nav-links { gap: 12px; }
+}
+
+@media (max-width: 768px) {
+    .top-nav { padding: 0 15px; height: 65px; }
+    body { padding-top: 65px; } 
+
+    .hero { height: 45vh; min-height: 350px; }
+    .carousel-item img { height: 550px; }
+
+    .actions { flex-direction: column; width: 100%; padding: 0 20px; }
+    .btn-secondary { width: 100%; min-width: 0; padding: 15px; }
+    
+    .texto-inicial {
+        padding: 20px; /* Reduz o espaçamento interno do texto no mobile */
+    }
+}
+
+@media (max-width: 500px) {
+    .hero h1 { font-size: 2.2rem; line-height: 1.2; }
+    
+    .countdown {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px;
+    }
+
+    .carousel-item img { height: 450px; }
+    .logo-img { width: 130px; }
+    .nav-links a { font-size: 0.8rem; padding: 6px 8px; }
+}
+
+@media (max-width: 370px) {
+    .hero h1 { font-size: 1.8rem; }
+    .time-box span { font-size: 1.3rem; }
+}
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
         <a href="{% url 'home' %}" class="logo">
-            <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo Casamento" class="logo-img">
+            <img src="{% static 'main/assets/logo.svg' %}" alt="Logotipo Casamento" class="logo-img">
         </a>
         <div class="nav-links">
             {% if user.is_authenticated %}
@@ -221,7 +247,6 @@
 
                 <span class="user-info">
                     | <strong>{{ user.username }}</strong>
-                    <a href="{% url 'logout' %}" style="margin-left:5px; text-decoration: underline;">Sair</a>
                 </span>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>

@@ -8,26 +8,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: #697e50; 
-            margin: 0; 
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(125deg, #f1f5ed, #d1e2c0);
+            margin: 0;
+            padding-top: 75px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            line-height: 1.5;
         }
         
         .top-nav {
             background-color: #354c2d;
-            padding: 10px 20px;
+            padding: 0 20px;
+            height: 75px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logo-img {
-            width: 200px;
+            width: 190px;
+            max-width: 220px;
             height: auto;
+            display: block;
         }
 
         .main-content {
@@ -35,7 +45,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .pix-card { 
@@ -60,7 +70,7 @@
 
         .total { 
             font-size: 1.8em; 
-            color: #4A5334; 
+            color: #354c2d; 
             font-weight: bold; 
             margin: 10px 0; 
         }
@@ -104,13 +114,63 @@
             padding: 15px 0;
             font-size: 0.85em;
         }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #DADED8;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            color: #e9f3e8;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #DADED8;
+        }
+
+        .user-info a {
+            color: #e9f3e8 !important;
+        }
     </style>
 </head>
 <body>
     <nav class="top-nav">
-        <a href="{% url 'home' %}">
-            <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo" class="logo-img">
-        </a>   
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'main/assets/logo.svg' %}" alt="Logotipo Casamento" class="logo-img">
+        </a>
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+            <span class="user-info">
+               <strong>{{ user.get_full_name|default:user.username }}</strong>
+                <a href="{% url 'logout' %}">Sair</a>
+            </span>
+            {% else %}
+            <a href="{% url 'home' %}">Início</a>
+            <a href="{% url 'register' %}">Registrar</a>
+            {% endif %}
+        </div>
     </nav> 
 
     <div class="main-content">

@@ -20,16 +20,23 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #697e50; 
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    color: #233f22;
+    background: linear-gradient(125deg, #f1f5ed, #d1e2c0);
+    line-height: 1.5;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    padding-top: 75px;
 }
 
+.register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 75px);
+    padding: 40px 20px;
+}
 
 .container {
     background: #ffffff;
@@ -38,11 +45,10 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     width: 100%;
     max-width: 450px;
-    margin: 80px auto 40px auto; /* Espaço para o header fixo */
 }
 
 h2 {
-    color: #4A5334;
+    color: #354c2d;
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.2em;
     margin-bottom: 25px;
@@ -77,7 +83,7 @@ input[type="tel"] {
 
 input:focus {
     outline: none;
-    border-color: #4A5334;
+    border-color: #354c2d;
     box-shadow: 0 0 0 3px rgba(74, 83, 52, 0.1);
 }
 
@@ -91,7 +97,7 @@ input:focus {
 .btn {
     width: 100%;
     padding: 14px;
-    background-color: #4A5334;
+    background-color: #354c2d;
     color: #EAE3D8;
     border: none;
     border-radius: 8px;
@@ -115,7 +121,7 @@ input:focus {
 }
 
 .login-link a {
-    color: #4A5334;
+    color: #354c2d;
     text-decoration: none;
     font-weight: 700;
 }
@@ -129,12 +135,16 @@ input:focus {
    ============================================================ */
 @media (max-width: 600px) {
     body {
-        justify-content: flex-start; /* Evita que o topo suma no scroll */
-        padding-top: 100px;
+        padding-top: 65px;
+    }
+
+    .register-container {
+        min-height: calc(100vh - 65px);
+        padding: 20px 15px;
     }
 
     .container {
-        width: 95%;
+        width: 100%;
         padding: 25px 20px;
     }
 
@@ -151,38 +161,98 @@ input:focus {
     input {
         font-size: 16px !important; /* Impede o zoom forçado no iPhone */
     }
+}
 
-    .footer {
-        position: relative !important;
-        margin-top: 30px;
-    }
-}        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+         .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+        
+        .logo-img {
+            width: 190px;
+            max-width: 220px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .footer {
+            background-color: #354c2d;
+            color: #EAE3D8;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #DADED8;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            color: #e9f3e8;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #e9f3e8;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}" class="logo">
-        <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo Casamento" class="logo-img">
-    </a>
-    <header class="header">
-        <h1>Ailka & Vínicius</h1>
-        <nav class="header-nav">
+    <nav class="top-nav">
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'main/assets/logo.svg' %}" alt="Logotipo Casamento" class="logo-img">
+        </a>
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+            <span class="user-info">
+                <strong>{{ user.get_full_name|default:user.username }}</strong>
+                <a href="{% url 'logout' %}">Sair</a>
+            </span>
+            {% else %}
             <a href="{% url 'home' %}">Início</a>
             <a href="{% url 'login' %}">Login</a>
-        </nav>
-    </header>
-
-    <div class="container">
-        <h2>Criar Conta</h2>
-
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <div class="message {{ message.tags }}">
-                {{ message }}
-            </div>
-            {% endfor %}
+            {% endif %}
         </div>
-        {% endif %}
+    </nav>
+
+    <div class="register-container">
+        <div class="container">
+            <h2>Criar Conta</h2>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
 
         <form method="POST">
             {% csrf_token %}
@@ -227,13 +297,14 @@ input:focus {
             <button type="submit" class="btn">Registrar</button>
         </form>
 
-        <div class="login-link">
-            Já tem conta? <a href="{% url 'login' %}">Faça login aqui</a>
+            <div class="login-link">
+                Já tem conta? <a href="{% url 'login' %}">Faça login aqui</a>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
-    <p>&copy; 2026 Ailka & Vínicius</p>
-</footer>
+        <p>&copy; 2026 Ailka & Vínicius</p>
+    </footer>
 </body>
 </html>

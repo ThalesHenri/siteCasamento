@@ -17,60 +17,20 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #EAE3D8;
-            min-height: 100vh;
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    color: #233f22;
+    background: linear-gradient(125deg, #f1f5ed, #d1e2c0);
+    line-height: 1.5;
+    min-height: 100vh;
+            padding-top: 75px;
+        }
+
+        .login-container {
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .top-nav {
-            background-color: #4e653d;
-            padding: 0 20px;
-            height: 75px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: #4A5334;
-           padding: 15px 20px;
-            text-align: center;
-            z-index: 100;
-        }
-
-        .header h1 {
-            color: #EAE3D8;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2em;
-            font-weight: 400;
-            margin: 0;
-        }
-
-        .header-nav {
-            margin-top: 8px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .header-nav a {
-            color: #EAE3D8;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: opacity 0.3s;
-        }
-
-        .header-nav a:hover {
-            opacity: 0.8;
+            min-height: calc(100vh - 75px);
+            padding: 40px 20px;
         }
 
         .container {
@@ -80,11 +40,10 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 350px;
-            margin-top: 80px;
         }
 
         h2 {
-            color: #4A5334;
+            color: #354c2d;
             font-family: 'Cormorant Garamond', serif;
             font-size: 2em;
             margin-bottom: 30px;
@@ -117,7 +76,7 @@
         input[type="text"]:focus,
         input[type="password"]:focus {
             outline: none;
-            border-color: #4A5334;
+            border-color: #354c2d;
             box-shadow: 0 0 0 2px rgba(74, 83, 52, 0.1);
         }
 
@@ -147,7 +106,7 @@
         .btn {
             width: 100%;
             padding: 12px;
-            background-color: #4A5334;
+            background-color: #354c2d;
             color: #EAE3D8;
             border: none;
             border-radius: 6px;
@@ -170,7 +129,7 @@
         }
 
         .register-link a {
-            color: #4A5334;
+            color: #354c2d;
             text-decoration: none;
             font-weight: 500;
         }
@@ -190,57 +149,36 @@
          .logo:hover .logo-img {
             transform: scale(1.05);
         }
+        
         .logo-img {
-    width: 250px; /* Controla a largura. Aumente para 300px ou diminua para 200px se precisar */
-    height: auto; /* Deixa a altura se ajustar sozinha para não distorcer */
-    transition: transform 0.3s ease;}
+            width: 190px;
+            max-width: 220px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
 
         .footer {
-            background-color: #4A5334;
+            background-color: #354c2d;
             color: #EAE3D8;
             text-align: center;
-            padding: 5px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            padding: 20px;
             font-size: 0.9em;
+            margin-top: 40px;
         }
-        /* ============================================================
-           RESPONSIVIDADE: PÁGINA DE LOGIN
-           ============================================================ */
-
         @media (max-width: 600px) {
             body {
-                /* Muda para flex-start para o formulário não sumir no topo ao abrir o teclado */
-                align-items: flex-start;
-                padding-top: 100px;
-                background-color: #697e50; /* Mantendo o padrão verde das outras telas */
+                padding-top: 65px;
             }
 
-            /* Navbar e Header Compactos */
-            .header {
-                padding: 1px !important;
-            }
-
-            .header h1 {
-                font-size: 1.5em !important;
-            }
-
-            .header-nav {
-                gap: 15px !important;
-            }
-
-            .logo-img {
-                width: 150px !important; /* Logo menor no mobile */
+            .login-container {
+                min-height: calc(100vh - 65px);
+                padding: 20px 15px;
             }
 
             /* Ajuste do Card de Login */
             .container {
-                width: 90% !important;
-                margin: 20px auto !important;
-                padding: 30px 20px !important;
-                margin-top: 10px !important; /* Ajuste por causa do header fixo */
+                width: 100%;
+                padding: 30px 20px;
             }
 
             h2 {
@@ -259,50 +197,40 @@
                 padding: 14px !important;
                 font-size: 1.1em !important;
             }
-
-            /* Footer */
-            .footer {
-                position: relative !important; /* Deixa de ser fixo para não atrapalhar o scroll */
-                margin-top: 40px !important;
-                padding: 15px !important;
-            }
-        }
-
-        /* Ajuste para celulares deitados (Landscape) */
-        @media (max-height: 500px) {
-            .header {
-                position: relative !important;
-            }
-            body {
-                padding-top: 20px;
-            }
         }
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}" class="logo">
-        <img src="{% static 'main/assets/logotiposvg.svg' %}" alt="Logotipo Casamento" class="logo-img">
-    </a>
-    <header class="header">
-        <h1>Ailka & Vínicius</h1>
-        <nav class="header-nav">
+    <nav class="top-nav">
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'main/assets/logo.svg' %}" alt="Logotipo Casamento" class="logo-img">
+        </a>
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+            <span class="user-info">
+                <strong>{{ user.get_full_name|default:user.username }}</strong>
+                <a href="{% url 'logout' %}">Sair</a>
+            </span>
+            {% else %}
             <a href="{% url 'home' %}">Início</a>
             <a href="{% url 'register' %}">Registrar</a>
-        </nav>
-    </header>
-
-    <div class="container">
-        <h2>Login</h2>
-
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <div class="message {{ message.tags }}">
-                {{ message }}
-            </div>
-            {% endfor %}
+            {% endif %}
         </div>
-        {% endif %}
+    </nav>
+
+    <div class="login-container">
+        <div class="container">
+            <h2>Login</h2>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
 
         <form method="POST">
             {% csrf_token %}
@@ -320,13 +248,14 @@
             <button type="submit" class="btn">Entrar</button>
         </form>
 
-        <div class="register-link">
-            Não tem conta? <a href="{% url 'register' %}">Registre-se aqui</a>
+            <div class="register-link">
+                Não tem conta? <a href="{% url 'register' %}">Registre-se aqui</a>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
-    <p>&copy; 2026 Ailka & Vínicius</p>
-</footer>
+        <p>&copy; 2026 Ailka & Vínicius</p>
+    </footer>
 </body>
 </html>
