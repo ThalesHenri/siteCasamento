@@ -107,7 +107,11 @@ a { color: inherit; text-decoration: none; }
 .arrow-icon {
     width: 20px;
     height: 20px;
-    fill: var(--primary-dark);
+    fill: none;
+    stroke: var(--primary-dark);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .top-nav {
@@ -289,7 +293,7 @@ a { color: inherit; text-decoration: none; }
     color: var(--TEXT);
     display: grid;
     place-items: center;
-    background: linear-gradient(180deg, rgba(53,76,45,0.68), rgba(40,54,31,0.88)), url("../assets/Ailka_Vinicius3.png") center/cover no-repeat;
+    background: linear-gradient(180deg, rgba(53,76,45,0.68), rgba(40,54,31,0.88)), url("../assets/Ailka&Vinicius11.png") center/cover no-repeat;
     position: relative;
     overflow: hidden;
 }
