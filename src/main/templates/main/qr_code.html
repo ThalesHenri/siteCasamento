@@ -68,6 +68,25 @@
             border-radius: 12px; 
         }
 
+        .pix-message {
+            text-align: left;
+            font-size: 0.95em;
+            color: #555;
+            background: #f6faf7;
+            border-left: 4px solid #32BCAD;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin: 18px 0 10px;
+        }
+
+        .pix-message p {
+            margin: 0 0 10px;
+        }
+
+        .pix-message p:last-child {
+            margin-bottom: 0;
+        }
+
         .total { 
             font-size: 1.8em; 
             color: #354c2d; 
@@ -183,10 +202,16 @@
                 <img src="{% static 'main/assets/qr-code.jpg' %}" alt="QR Code" style="width: 100%; max-width: 200px;">
             </div>
 
+            <div class="pix-message">
+                <p>Para sua comodidade, disponibilizamos o pagamento via QR Code. Gostaríamos de informar que o sistema não gera uma confirmação automática imediata para nós após a conclusão da transação.</p>
+                <p>Para que possamos identificar sua contribuição com carinho, se preferir, você pode enviar o comprovante diretamente para os noivos.</p>
+                <p>Agradecemos imensamente por fazer parte deste momento tão especial!</p>
+            </div>
+
             <p style="font-size: 0.9em; font-weight: bold;">Pix Copia e Cola:</p>
-            <input type="text" value="SUA_CHAVE_PIX_AQUI" id="pixCode" readonly style="position: absolute; left: -9999px;">
+            <input type="text" value="00020126580014br.gov.bcb.pix0136d2c63574-e67e-443b-9338-47a13642c3625204000053039865802BR5924Ailka Beatriz Gouveia Do6009Sao Paulo62230519daqr3336377672339606304DA74" id="pixCode" readonly style="position: absolute; left: -9999px;">
             <div class="copy-paste-box" onclick="copyPix()">
-                00020101021126580014br.gov.bcb.pix... (clique para copiar)
+                00020126580014br.gov.bcb.pix0136d2c63574-e67e-443b-9338-47a13642c3625204000053039865802BR5924Ailka Beatriz Gouveia Do6009Sao Paulo62230519daqr3336377672339606304DA74 (clique para copiar)
             </div>
             <button class="btn-copy" onclick="copyPix()">Copiar Código Pix</button>
             
@@ -200,7 +225,7 @@
 
     <script>
         function copyPix() {
-            const code = "00020126580014br.gov.bcb.pix0136d2c63574-e67e-443b-9338-47a13642c3625204000053039865802BR5924Ailka Beatriz Gouveia Do6009Sao Paulo62230519daqr3336377672339606304DA74"; // Substitua pela variável real
+            const code = document.getElementById("pixCode").value;
             navigator.clipboard.writeText(code).then(() => {
                 alert("Código Pix copiado com sucesso!");
             });
